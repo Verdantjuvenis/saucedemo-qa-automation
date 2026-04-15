@@ -1,6 +1,6 @@
 import pytest
-from selenium.webdriver.common.by import By
 from pages.inventory_page import InventoryPage
+from pages.cart_page import CartPage
 
 
 @pytest.mark.smoke
@@ -13,9 +13,10 @@ def test_add_item_to_cart(logged_in_driver):
 
 def test_remove_item_from_cart(logged_in_driver):
     inventory_page = InventoryPage(logged_in_driver)
+    cart_page = CartPage(logged_in_driver)
 
     inventory_page.add_backpack_to_cart()
-    logged_in_driver.find_element(By.ID, "remove-sauce-labs-backpack").click()
+    cart_page.open()
+    cart_page.remove_backpack()
 
-    badges = logged_in_driver.find_elements(By.CLASS_NAME, "shopping_cart_badge")
-    assert len(badges) == 0
+    assert len(cart_page.get_badges()) == 0
