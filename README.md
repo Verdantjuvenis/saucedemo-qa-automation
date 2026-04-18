@@ -7,6 +7,7 @@ Automated UI test suite for SauceDemo using Python, pytest, and Selenium.
 - Inventory testing
 - Cart testing
 - Checkout testing
+- Sorting validation
 
 ## Test Coverage
 - Valid login
@@ -18,6 +19,7 @@ Automated UI test suite for SauceDemo using Python, pytest, and Selenium.
 - Remove item from cart
 - Complete checkout
 - Checkout validation error
+- Sort items A to Z
 
 ## Framework Features
 - Pytest fixtures for browser setup
