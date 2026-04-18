@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 
 
 class InventoryPage:
@@ -7,6 +8,9 @@ class InventoryPage:
     BACKPACK_ADD_BUTTON = (By.ID, "add-to-cart-sauce-labs-backpack")
     CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
     CART_LINK = (By.CLASS_NAME, "shopping_cart_link")
+
+    SORT_DROPDOWN = (By.CLASS_NAME, "product_sort_container")
+    ITEM_NAMES = (By.CLASS_NAME, "inventory_item_name")
 
     def __init__(self, driver):
         self.driver = driver
@@ -25,3 +29,12 @@ class InventoryPage:
 
     def open_cart(self):
         self.driver.find_element(*self.CART_LINK).click()
+
+    def select_sort_az(self):
+        dropdown = self.driver.find_element(*self.SORT_DROPDOWN)
+        select = Select(dropdown)
+        select.select_by_visible_text("Name (A to Z)")
+
+    def get_item_names(self):
+        items = self.driver.find_elements(*self.ITEM_NAMES)
+        return [item.text for item in items]
