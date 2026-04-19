@@ -43,3 +43,8 @@ class InventoryPage:
     def get_item_prices(self):
         items = self.driver.find_elements(*self.ITEM_PRICES)
         return [item.text for item in items]
+    
+    def select_sort_price_high_to_low(self):
+        dropdown = self.driver.find_element(*self.SORT_DROPDOWN)
+        select = Select(dropdown)
+        select.select_by_visible_text("Price (high to low)")
