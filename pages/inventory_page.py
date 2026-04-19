@@ -11,6 +11,7 @@ class InventoryPage:
 
     SORT_DROPDOWN = (By.CLASS_NAME, "product_sort_container")
     ITEM_NAMES = (By.CLASS_NAME, "inventory_item_name")
+    ITEM_PRICES = (By.CLASS_NAME, "inventory_item_price")
 
     def __init__(self, driver):
         self.driver = driver
@@ -37,4 +38,8 @@ class InventoryPage:
 
     def get_item_names(self):
         items = self.driver.find_elements(*self.ITEM_NAMES)
+        return [item.text for item in items]
+    
+    def get_item_prices(self):
+        items = self.driver.find_elements(*self.ITEM_PRICES)
         return [item.text for item in items]
