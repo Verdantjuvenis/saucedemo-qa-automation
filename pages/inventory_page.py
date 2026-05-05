@@ -57,3 +57,8 @@ class InventoryPage:
         dropdown = self.driver.find_element(*self.SORT_DROPDOWN)
         select = Select(dropdown)
         select.select_by_visible_text("Price (low to high)")
+
+    def select_sort_za(self):
+        dropdown = self.driver.find_element(*self.SORT_DROPDOWN)
+        select = Select(dropdown)
+        select.select_by_visible_text("Name (Z to A)")
