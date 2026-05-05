@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class InventoryPage:
@@ -41,6 +42,9 @@ class InventoryPage:
         return [item.text for item in items]
     
     def get_item_prices(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located(self.ITEM_PRICES)
+            )
         items = self.driver.find_elements(*self.ITEM_PRICES)
         return [item.text for item in items]
     
@@ -48,3 +52,8 @@ class InventoryPage:
         dropdown = self.driver.find_element(*self.SORT_DROPDOWN)
         select = Select(dropdown)
         select.select_by_visible_text("Price (high to low)")
+
+    def select_sort_price_low_to_high(self):
+        dropdown = self.driver.find_element(*self.SORT_DROPDOWN)
+        select = Select(dropdown)
+        select.select_by_visible_text("Price (low to high)")
