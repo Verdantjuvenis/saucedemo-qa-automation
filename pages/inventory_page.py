@@ -62,3 +62,7 @@ class InventoryPage:
         dropdown = self.driver.find_element(*self.SORT_DROPDOWN)
         select = Select(dropdown)
         select.select_by_visible_text("Name (Z to A)")
+    
+    def wait_for_inventory_loaded(self):
+        WebDriverWait(self.driver, 10).until(
+        EC.presence_of_all_elements_located(self.ITEM_NAMES))
