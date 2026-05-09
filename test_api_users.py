@@ -111,3 +111,11 @@ def test_get_invalid_user():
 
     assert response.status_code == 404
     assert response.json() == {}
+
+def test_users_api_response_time():
+    response = requests.get(
+        "https://jsonplaceholder.typicode.com/users",
+        timeout=5
+    )
+
+    assert response.status_code == 200
