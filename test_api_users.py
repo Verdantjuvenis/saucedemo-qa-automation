@@ -1,12 +1,5 @@
-import pytest
 import requests
 
-
-@pytest.fixture
-def users():
-    response = requests.get("https://jsonplaceholder.typicode.com/users")
-    assert response.status_code == 200
-    return response.json()
 
 
 def test_get_users_status_code():
@@ -83,3 +76,38 @@ def test_delete_user():
     response = requests.delete("https://jsonplaceholder.typicode.com/users/1")
 
     assert response.status_code == 200
+
+def test_user_schema(users):
+    for user in users:
+        assert isinstance(user["id"], int)
+        assert isinstance(user["name"], str)
+        assert isinstance(user["username"], str)
+        assert isinstance(user["email"], str)
+
+        assert isinstance(user["address"], dict)
+        assert isinstance(user["phone"], str)
+        assert isinstance(user["website"], str)
+
+        assert isinstance(user["company"], dict)
+
+    def test_user_address_schema(users):
+        for user in users:
+            address = user["address"]
+
+            assert isinstance(address["street"], str)
+            assert isinstance(address["suite"], str)
+            assert isinstance(address["city"], str)
+            assert isinstance(address["zipcode"], str)
+
+def test_get_invalid_user():
+    response = requests.get(
+        "https://jsonplaceholder.typicode.com/users/9999"
+    )
+
+    assert response.status_code == 404
+
+def test_get_invalid_user():
+    response = requests.get("https://jsonplaceholder.typicode.com/users/9999")
+
+    assert response.status_code == 404
+    assert response.json() == {}

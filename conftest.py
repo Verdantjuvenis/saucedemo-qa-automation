@@ -19,3 +19,12 @@ def logged_in_driver(driver):
     login_page = LoginPage(driver)
     login_page.login("standard_user", "secret_sauce")
     return driver
+
+import requests
+
+
+@pytest.fixture
+def users():
+    response = requests.get("https://jsonplaceholder.typicode.com/users")
+    assert response.status_code == 200
+    return response.json()
