@@ -66,3 +66,5 @@ class InventoryPage:
     def wait_for_inventory_loaded(self):
         WebDriverWait(self.driver, 10).until(
         EC.presence_of_all_elements_located(self.ITEM_NAMES))
+
+    
