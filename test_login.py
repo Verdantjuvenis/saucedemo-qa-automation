@@ -1,4 +1,5 @@
 import csv
+from pathlib import Path
 import pytest
 from pages.login_page import LoginPage
 
@@ -26,7 +27,11 @@ def test_locked_out_user(driver):
 
 login_test_data = []
 
-with open("login_data.csv", newline="") as csvfile:
+from pathlib import Path
+
+LOGIN_DATA = Path(__file__).parent / "login_data.csv"
+
+with open(LOGIN_DATA, newline="") as csvfile:
     reader = csv.DictReader(csvfile)
 
     for row in reader:
