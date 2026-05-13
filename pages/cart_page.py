@@ -22,6 +22,10 @@ class CartPage:
             EC.element_to_be_clickable(self.REMOVE_BACKPACK_BUTTON)
         ).click()
 
+        WebDriverWait(self.driver, 10).until(
+            EC.invisibility_of_element_located(self.CART_BADGES)
+        )
+
     def get_badges(self):
         return self.driver.find_elements(*self.CART_BADGES)
 

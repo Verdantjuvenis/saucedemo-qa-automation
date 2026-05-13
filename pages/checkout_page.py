@@ -21,6 +21,10 @@ class CheckoutPage:
             EC.element_to_be_clickable(self.CHECKOUT_BUTTON)
         ).click()
 
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.FIRST_NAME_INPUT)
+        )
+
     def enter_first_name(self, first_name):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.FIRST_NAME_INPUT)
