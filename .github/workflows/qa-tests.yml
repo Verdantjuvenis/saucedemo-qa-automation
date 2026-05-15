@@ -25,4 +25,4 @@ jobs:
           pip install requests
 
       - name: Run API tests
-        run: pytest test_api_users.py -v
+        run: pytest test_api_users.py test_login.py::test_valid_login -v
