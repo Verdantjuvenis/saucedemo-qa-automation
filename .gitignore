@@ -5,3 +5,4 @@ __pycache__/
 *.pyd
 
 git remote set-url origin https://github.com/Verdantjuvenis/saucedemo-qa-automation.git
+screenshots/
