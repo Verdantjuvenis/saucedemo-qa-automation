@@ -1,6 +1,8 @@
 import pytest
 from pages.inventory_page import InventoryPage
 
+pytestmark = pytest.mark.ui
+
 
 @pytest.mark.smoke
 def test_inventory_items_display(logged_in_driver):

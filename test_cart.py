@@ -2,6 +2,8 @@ import pytest
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 
+pytestmark = pytest.mark.ui
+
 
 @pytest.mark.smoke
 def test_add_item_to_cart(logged_in_driver):

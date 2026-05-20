@@ -1,5 +1,7 @@
+from dotenv import load_dotenv
 import os
 import pytest
+load_dotenv()
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from pages.login_page import LoginPage

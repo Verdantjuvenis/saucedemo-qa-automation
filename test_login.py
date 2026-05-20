@@ -1,13 +1,19 @@
+import os
 import csv
 from pathlib import Path
 import pytest
 from pages.login_page import LoginPage
 
+pytestmark = pytest.mark.ui
+
 
 @pytest.mark.smoke
 def test_valid_login(driver):
     login_page = LoginPage(driver)
-    login_page.login("standard_user", "secret_sauce")
+    login_page.login(
+    os.getenv("STANDARD_USER"),
+    os.getenv("STANDARD_PASSWORD")
+)
 
     assert "inventory" in driver.current_url
 
@@ -48,7 +54,7 @@ with open(LOGIN_DATA, newline="") as csvfile:
     login_test_data
 )
 def test_login_scenarios(driver, username, password, expected_result):
-    driver.get("https://www.saucedemo.com/")
+    driver.get(os.getenv("BASE_URL"))
 
     login_page = LoginPage(driver)
 

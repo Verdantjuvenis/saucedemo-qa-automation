@@ -1,6 +1,9 @@
+import pytest
 import requests
 
+pytestmark = pytest.mark.api
 
+@pytest.mark.api
 
 def test_get_users_status_code():
     response = requests.get("https://jsonplaceholder.typicode.com/users")

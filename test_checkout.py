@@ -3,6 +3,8 @@ from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 
+pytestmark = pytest.mark.ui
+
 
 @pytest.mark.smoke
 def test_complete_checkout(logged_in_driver):
