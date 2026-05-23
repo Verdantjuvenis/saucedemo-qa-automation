@@ -34,3 +34,10 @@ Automated UI test suite for SauceDemo using Python, pytest, and Selenium.
 ## Run all tests
 ```powershell
 pytest -v
+
+## Setup
+
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
