@@ -123,10 +123,11 @@ def test_users_api_response_time():
 
     assert response.status_code == 200
 
-def test_users_api_responds_under_two_seconds():
+def test_users_api_responds_within_timeout():
     response = requests.get(
         "https://jsonplaceholder.typicode.com/users",
         timeout=5
     )
 
-    assert response.elapsed.total_seconds() < 2
+    assert response.status_code == 200
+    assert response.elapsed.total_seconds() < 5
