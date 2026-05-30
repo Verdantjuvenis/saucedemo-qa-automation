@@ -41,3 +41,10 @@ Install dependencies:
 
 ```powershell
 pip install -r requirements.txt
+
+## Browser selection
+
+Run tests with Chrome:
+
+```powershell
+pytest -v --browser chrome
