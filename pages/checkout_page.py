@@ -49,7 +49,9 @@ class CheckoutPage:
         self.driver.find_element(*self.CONTINUE_BUTTON).click()
 
     def finish_checkout(self):
-        self.driver.find_element(*self.FINISH_BUTTON).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.FINISH_BUTTON)
+        ).click()
 
     def get_success_message_element(self):
         return WebDriverWait(self.driver, 10).until(

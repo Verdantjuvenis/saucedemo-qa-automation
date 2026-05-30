@@ -2,6 +2,7 @@ import pytest
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
+from Utils.logger import get_logger
 
 pytestmark = pytest.mark.ui
 
@@ -11,6 +12,7 @@ def test_complete_checkout(logged_in_driver):
     inventory_page = InventoryPage(logged_in_driver)
     cart_page = CartPage(logged_in_driver)
     checkout_page = CheckoutPage(logged_in_driver)
+    logger = get_logger()
 
     inventory_page.add_backpack_to_cart()
     cart_page.open()

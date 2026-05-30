@@ -6,9 +6,17 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from pages.login_page import LoginPage
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--browser",
+        action="store",
+        default="chrome",
+        help="Browser to run tests against: chrome"
+    )
 
 @pytest.fixture
-def driver():
+def driver(request):
+    browser = request.config.getoption("--browser")
     options = Options()
 
     if os.getenv("CI") == "true":
@@ -19,7 +27,16 @@ def driver():
     else:
         options.add_argument("--start-maximized")
 
-    driver = webdriver.Chrome(options=options)
+    if browser == "chrome":
+        driver = webdriver.Chrome(options=options)
+
+    elif browser == "brave":
+        options.binary_location = r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
+        driver = webdriver.Chrome(options=options)
+
+    else:
+        raise ValueError(f"Unsupported browser: {browser}")
+    
     yield driver
     driver.quit()
 
