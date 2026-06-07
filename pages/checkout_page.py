@@ -53,6 +53,10 @@ class CheckoutPage:
             EC.element_to_be_clickable(self.FINISH_BUTTON)
         ).click()
 
+        WebDriverWait(self.driver, 10).until(
+        EC.url_contains("checkout-complete")
+        )
+
     def get_success_message_element(self):
         return WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.COMPLETE_HEADER)

@@ -8,26 +8,27 @@ pytestmark = pytest.mark.ui
 
 
 @pytest.mark.smoke
-def test_valid_login(driver):
+def test_valid_login(driver, base_url):
     login_page = LoginPage(driver)
     login_page.login(
-    os.getenv("STANDARD_USER"),
-    os.getenv("STANDARD_PASSWORD")
-)
+        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_PASSWORD"),
+        base_url
+    )
 
     assert "inventory" in driver.current_url
 
 
-def test_invalid_login(driver):
+def test_invalid_login(driver, base_url):
     login_page = LoginPage(driver)
-    login_page.login("wrong_user", "wrong_pass")
+    login_page.login("wrong_user", "wrong_pass", base_url)
 
     assert "epic sadface" in login_page.get_error_text().lower()
 
 
-def test_locked_out_user(driver):
+def test_locked_out_user(driver, base_url):
     login_page = LoginPage(driver)
-    login_page.login("locked_out_user", "secret_sauce")
+    login_page.login("locked_out_user", "secret_sauce", base_url)
 
     assert "locked out" in login_page.get_error_text().lower()
 
@@ -53,12 +54,13 @@ with open(LOGIN_DATA, newline="") as csvfile:
     "username,password,expected_result",
     login_test_data
 )
-def test_login_scenarios(driver, username, password, expected_result):
+
+def test_login_scenarios(driver, base_url, username, password, expected_result):
     driver.get(os.getenv("BASE_URL"))
 
     login_page = LoginPage(driver)
 
-    login_page.login(username, password)
+    login_page.login(username, password, base_url)
 
     if expected_result == "success":
         assert "inventory" in driver.current_url

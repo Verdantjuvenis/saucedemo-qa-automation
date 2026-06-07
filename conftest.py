@@ -11,7 +11,14 @@ def pytest_addoption(parser):
         "--browser",
         action="store",
         default="chrome",
-        help="Browser to run tests against: chrome"
+        help="Browser to run tests against: chrome or brave"
+    )
+
+    parser.addoption(
+        "--env",
+        action="store",
+        default="qa",
+        help="Environment to run tests against: qa or staging"
     )
 
 @pytest.fixture
@@ -41,9 +48,27 @@ def driver(request):
     driver.quit()
 
 @pytest.fixture
-def logged_in_driver(driver):
+def base_url(request):
+    env = request.config.getoption("--env")
+
+    urls = {
+        "qa": os.getenv("BASE_URL", "https://www.saucedemo.com/"),
+        "staging": "https://www.saucedemo.com/",
+    }
+
+    if env not in urls:
+        raise ValueError(f"Unsupported environment: {env}")
+
+    return urls[env]
+
+@pytest.fixture
+def logged_in_driver(driver, base_url):
     login_page = LoginPage(driver)
-    login_page.login("standard_user", "secret_sauce")
+    login_page.login(
+        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_PASSWORD"),
+        base_url
+    )
     return driver
 
 import requests

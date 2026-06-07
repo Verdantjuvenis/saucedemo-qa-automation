@@ -12,8 +12,8 @@ class LoginPage:
     def __init__(self, driver):
         self.driver = driver
 
-    def open(self):
-        self.driver.get(self.URL)
+    def open(self, url):
+        self.driver.get(url)
 
     def enter_username(self, username):
         self.driver.find_element(*self.USERNAME_INPUT).send_keys(username)
@@ -24,8 +24,8 @@ class LoginPage:
     def click_login(self):
         self.driver.find_element(*self.LOGIN_BUTTON).click()
 
-    def login(self, username, password):
-        self.open()
+    def login(self, username, password, url):
+        self.open(url)
         self.enter_username(username)
         self.enter_password(password)
         self.click_login()

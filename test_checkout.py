@@ -14,14 +14,27 @@ def test_complete_checkout(logged_in_driver):
     checkout_page = CheckoutPage(logged_in_driver)
     logger = get_logger()
 
+    logger.info("Adding backpack to cart")
     inventory_page.add_backpack_to_cart()
+
+    logger.info("Opening cart")
     cart_page.open()
+
+    logger.info("Starting checkout")
     checkout_page.start_checkout()
+
+    logger.info("Filling checkout information")
     checkout_page.fill_checkout_info("Kev", "Test", "12345")
+
+    logger.info("Continuing checkout")
     checkout_page.continue_checkout()
+
+    logger.info("Finishing checkout")
     checkout_page.finish_checkout()
 
+    logger.info("Verifying checkout success message")
     message = checkout_page.get_success_message_element()
+
     assert "checkout-complete" in logged_in_driver.current_url
     assert "thank you" in message.text.lower()
 
