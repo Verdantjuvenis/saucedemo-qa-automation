@@ -64,3 +64,8 @@ class CheckoutPage:
 
     def get_error_text(self):
         return self.driver.find_element(*self.ERROR_MESSAGE).text
+    
+    def wait_for_checkout_form(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.FIRST_NAME_INPUT)
+    )

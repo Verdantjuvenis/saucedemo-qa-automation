@@ -5,6 +5,7 @@ load_dotenv()
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from pages.login_page import LoginPage
+from Utils.logger import get_logger
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -92,3 +93,7 @@ def pytest_runtest_makereport(item, call):
             os.makedirs("screenshots", exist_ok=True)
             screenshot_path = f"screenshots/{item.name}.png"
             driver.save_screenshot(screenshot_path)
+
+            logger = get_logger()
+            logger.info(f"Screenshot saved: {screenshot_path}")
+            logger.info(f"Failure URL: {driver.current_url}")

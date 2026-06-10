@@ -20,8 +20,11 @@ def test_complete_checkout(logged_in_driver):
     logger.info("Opening cart")
     cart_page.open()
 
-    logger.info("Starting checkout")
-    checkout_page.start_checkout()
+    logger.info("Clicking checkout")
+    cart_page.click_checkout()
+
+    logger.info("Waiting for checkout form")
+    checkout_page.wait_for_checkout_form()
 
     logger.info("Filling checkout information")
     checkout_page.fill_checkout_info("Kev", "Test", "12345")
