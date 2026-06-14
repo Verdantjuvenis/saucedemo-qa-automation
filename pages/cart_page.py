@@ -8,6 +8,7 @@ class CartPage:
     REMOVE_BACKPACK_BUTTON = (By.ID, "remove-sauce-labs-backpack")
     CART_BADGES = (By.CLASS_NAME, "shopping_cart_badge")
     CHECKOUT_BUTTON = (By.ID, "checkout")
+    CART_TITLE = (By.CLASS_NAME, "title")
 
     def __init__(self, driver):
         self.driver = driver
@@ -16,6 +17,8 @@ class CartPage:
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.CART_LINK)
         ).click()
+
+        self.wait_for_cart_page()
 
     def remove_backpack(self):
         WebDriverWait(self.driver, 10).until(
@@ -33,3 +36,11 @@ class CartPage:
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.CHECKOUT_BUTTON)
         ).click()
+
+    def wait_for_cart_page(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.text_to_be_present_in_element(
+                self.CART_TITLE,
+                "Your Cart"
+            )
+        )
